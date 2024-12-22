@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Article Details</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<header>
+  <h1>News App</h1>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+  </nav>
+</header>
+<main>
+  <h2 th:text="${article.title}">Article Title</h2>
+  <p th:text="${article.content}">Article content goes here.</p>
+
+  <section>
+    <h3>Comments</h3>
+    <ul>
+      <!-- Loop over comments -->
+      <th:block th:each="comment : ${comments}">
+        <li>
+          <strong th:text="${comment.username}"></strong>:
+          <span th:text="${comment.content}"></span>
+          <form th:action="@{/articles/{id}/comments/{commentId}(id=${article.id}, commentId=${comment.id})}" method="post">
+            <button type="submit">Delete</button>
+          </form>
+        </li>
+      </th:block>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Add a Comment</h3>
+    <form th:action="@{/articles/{id}/comments(id=${article.id})}" method="post">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" minlength="4" maxlength="20" required>
+      <label for="content">Comment:</label>
+      <textarea id="content" name="content" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+    <p th:if="${error}" th:text="${error}" style="color: red;"></p>
+  </section>
+</main>
+</body>
+</html>

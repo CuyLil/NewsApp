@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles List</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<header>
+    <h1>News App</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+    </nav>
+</header>
+<main>
+    <h2>Articles</h2>
+    <ul>
+        <!-- Loop over articles -->
+        <th:block th:each="article : ${articles}">
+            <li>
+                <a th:href="@{/articles/{id}(id=${article.id})}" th:text="${article.title}"></a>
+            </li>
+        </th:block>
+    </ul>
+</main>
+</body>
+</html>
